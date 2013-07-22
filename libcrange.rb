@@ -18,8 +18,7 @@ end
 
 class LibCRange
   extend FFI::Library
-  #ffi_lib "libcrange.so"
-  ffi_lib "/home/eam/prefix/usr/lib/libcrange.so"
+  ffi_lib "libcrange.so"
   attach_function 'range_easy_create', [:string], :pointer
   attach_function 'range_easy_expand', [:pointer, :string], :pointer
   attach_function 'range_easy_eval', [:pointer, :string], :string
@@ -58,8 +57,6 @@ if __FILE__ == $0
     r = LibCRange.new()
     puts r.expand("bar100..200")
     GC.start
-    GC.garbage_collect
-
   end
 end
 
