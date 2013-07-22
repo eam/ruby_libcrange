@@ -63,7 +63,7 @@ if __FILE__ == $0
     puts ret.inspect
 
 
-    # this currently leaks
+    # this no longer leaks, but caller must call #destroy
     r = LibCRange.new()
     puts r.expand("bar100..200")
     puts r.eval("bar100..200")
