@@ -23,6 +23,7 @@ class LibCRange
   attach_function 'range_easy_expand', [:pointer, :string], :pointer
   attach_function 'range_easy_eval', [:pointer, :string], :string
   attach_function 'range_easy_compress', [:pointer, :string], :string
+  attach_function 'range_easy_destroy', [:pointer], :int
   
   def initialize(conf=nil)
     @elr = LibCRange.range_easy_create(nil)
@@ -30,6 +31,15 @@ class LibCRange
 
   def expand(range_exp)
     return LibCRange.range_easy_expand(@elr, range_exp).read_array_of_string
+  end
+  def eval(range_exp)
+    return LibCRange.range_easy_eval(@elr, range_exp)
+  end
+  def compress(nodes)
+    # FIXME
+  end
+  def destroy
+    return LibCRange.range_easy_destroy(@elr)
   end
 end
 
@@ -56,6 +66,8 @@ if __FILE__ == $0
     # this currently leaks
     r = LibCRange.new()
     puts r.expand("bar100..200")
+    puts r.eval("bar100..200")
+    r.destroy
     GC.start
   end
 end
